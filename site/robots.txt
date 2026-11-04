@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /pages/admin.html
+Disallow: /pages/authentification.html
+Disallow: /pages/tableau-fermier.html
+Disallow: /js/supabase-config.js
+
+Sitemap: https://votre-domaine.example/sitemap.xml

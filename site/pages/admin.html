@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#fcfaf6">
+    <meta name="description" content="Espace sécurisé de gestion et de modération Faso Élevage.">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Administration — Faso Élevage</title>
+    <link rel="icon" href="../icons/mark.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../icons/icon-192.png">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+    <script defer src="../js/supabase-config.js"></script>
+    <script defer src="../js/i18n.js"></script>
+    <script defer src="../js/client-shell.js"></script>
+    <script defer src="../js/admin.js"></script>
+  </head>
+  <body data-page="admin" data-site-base="../">
+    <a class="sr-only" href="#main">Aller au contenu</a>
+    <div id="site-header"></div>
+    <main id="main" class="container admin-main">
+      <header class="admin-heading">
+        <div>
+          <p class="eyebrow">Accès réservé · Authentification renforcée</p>
+          <h1>Espace administration</h1>
+          <p class="muted">Les actions sont protégées par les rôles Supabase et une session MFA de niveau AAL2.</p>
+        </div>
+        <a class="button button--outline" href="../index.html">Retour au site</a>
+      </header>
+
+      <div id="admin-notice" class="notice admin-notice" role="status" aria-live="polite" hidden></div>
+
+      <section id="admin-sign-in" class="surface admin-card" hidden>
+        <h2>Connexion requise</h2>
+        <p>Connectez-vous avec un compte administrateur depuis l’espace compte. Ne transmettez jamais de mot de passe ni de clé secrète.</p>
+        <a class="button" href="authentification.html">Ouvrir la connexion</a>
+      </section>
+
+      <section id="admin-denied" class="surface admin-card" hidden>
+        <h2>Accès réservé</h2>
+        <p>Ce compte n’a pas le rôle administrateur. Les données de gestion ne sont pas chargées.</p>
+        <a class="button button--outline" href="authentification.html">Retour à mon compte</a>
+      </section>
+
+      <section id="admin-mfa" class="surface admin-card admin-mfa" hidden>
+        <p class="eyebrow">Double authentification obligatoire</p>
+        <h2 id="admin-mfa-title">Vérifiez votre identité</h2>
+        <p id="admin-mfa-help" class="muted">Utilisez une application d’authentification (TOTP). Aucun écran de gestion ne sera ouvert avant la vérification.</p>
+        <div id="admin-mfa-setup" hidden>
+          <p>Scannez ce QR code dans une application TOTP, ou saisissez la clé de configuration. Gardez cette clé privée.</p>
+          <img id="admin-mfa-qr" class="admin-mfa-qr" alt="QR code de configuration TOTP">
+          <div class="field"><label for="admin-mfa-secret">Clé de configuration</label><input id="admin-mfa-secret" readonly autocomplete="off"></div>
+        </div>
+        <form id="admin-mfa-form" class="admin-form" method="post">
+          <div class="field">
+            <label for="admin-mfa-code">Code à 6 chiffres</label>
+            <input id="admin-mfa-code" name="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" minlength="6" maxlength="6" required>
+          </div>
+          <button id="admin-mfa-submit" class="button button--red" type="submit">Vérifier le code</button>
+        </form>
+      </section>
+
+      <section id="admin-console" hidden>
+        <div class="surface admin-session">
+          <p id="admin-account-label" class="muted"></p>
+          <span class="badge">✓ MFA vérifiée · AAL2</span>
+          <button id="admin-sign-out" class="button button--outline" type="button">Se déconnecter</button>
+        </div>
+        <nav class="admin-tabs" aria-label="Sections d’administration">
+          <button type="button" data-admin-tab="overview" aria-current="page">Vue d’ensemble</button>
+          <button type="button" data-admin-tab="farmers">Fermiers</button>
+          <button type="button" data-admin-tab="listings">Annonces</button>
+          <button type="button" data-admin-tab="reviews">Avis</button>
+          <button type="button" data-admin-tab="reports">Signalements</button>
+          <button type="button" data-admin-tab="categories">Catégories</button>
+          <button type="button" data-admin-tab="settings">Paramètres</button>
+          <button type="button" data-admin-tab="admins">Administrateurs</button>
+          <button type="button" data-admin-tab="activity">Journal</button>
+        </nav>
+
+        <section class="admin-panel" data-admin-panel="overview">
+          <div class="section-heading">
+            <div><p class="eyebrow">30 derniers jours</p><h2>Vue d’ensemble</h2></div>
+            <button class="button button--outline" type="button" data-refresh>Actualiser</button>
+          </div>
+          <div class="admin-metrics">
+            <article class="surface admin-metric"><strong id="metric-visitors">—</strong><span>Visiteurs estimés</span></article>
+            <article class="surface admin-metric"><strong id="metric-whatsapp">—</strong><span>Clics WhatsApp</span></article>
+            <article class="surface admin-metric"><strong id="metric-listings">—</strong><span>Annonces actives</span></article>
+            <article class="surface admin-metric"><strong id="metric-farmers">—</strong><span>Fermiers en attente</span></article>
+          </div>
+          <p class="notice">Les visites et clics sont des estimations. Un clic WhatsApp n’est ni une commande confirmée, ni une vente.</p>
+          <div class="admin-shortcuts">
+            <button class="button" type="button" data-admin-tab="farmers">Examiner les fermiers en attente</button>
+            <button class="button button--outline" type="button" data-admin-tab="reports">Traiter les signalements</button>
+          </div>
+        </section>
+
+        <section class="admin-panel" data-admin-panel="farmers" hidden>
+          <div class="section-heading"><div><p class="eyebrow">Contrôle des comptes</p><h2>Fermiers</h2></div><button class="button button--outline" type="button" data-export="farmers">Exporter CSV</button></div>
+          <div class="field"><label for="farmer-search">Rechercher un fermier</label><input id="farmer-search" type="search" placeholder="Nom, ferme, ville…"></div>
+          <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Compte / ferme</th><th>Contact et lieu</th><th>Statut</th><th>Vérification</th><th>Actions</th></tr></thead><tbody id="admin-farmers"></tbody></table></div>
+        </section>
+
+        <section class="admin-panel" data-admin-panel="listings" hidden>
+          <div class="section-heading"><div><p class="eyebrow">Modération commerciale</p><h2>Annonces</h2></div><button class="button button--outline" type="button" data-export="listings">Exporter CSV</button></div>
+          <div class="field"><label for="listing-search">Rechercher une annonce</label><input id="listing-search" type="search" placeholder="Titre, espèce, ville…"></div>
+          <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Annonce</th><th>Fermier</th><th>Prix / stock</th><th>Statut</th><th>Note de modération</th><th>Actions</th></tr></thead><tbody id="admin-listings"></tbody></table></div>
+        </section>
+
+        <section class="admin-panel" data-admin-panel="reviews" hidden>
+          <div class="section-heading"><div><p class="eyebrow">Publication contrôlée</p><h2>Avis</h2></div><button class="button button--outline" type="button" data-export="reviews">Exporter CSV</button></div>
+          <div class="field"><label for="review-search">Rechercher un avis</label><input id="review-search" type="search" placeholder="Nom, contenu, ferme…"></div>
+          <div id="admin-reviews" class="admin-record-list"></div>
+        </section>
+
+        <section class="admin-panel" data-admin-panel="reports" hidden>
+          <div class="section-heading"><div><p class="eyebrow">Protection de la communauté</p><h2>Signalements</h2></div><button class="button button--outline" type="button" data-export="reports">Exporter CSV</button></div>
+          <div id="admin-reports" class="admin-record-list"></div>
+        </section>
+
+        <section class="admin-panel" data-admin-panel="categories" hidden>
+          <div class="section-heading"><div><p class="eyebrow">Catalogue public</p><h2>Catégories</h2></div><button class="button button--outline" type="button" data-export="categories">Exporter CSV</button></div>
+          <form id="category-form" class="surface admin-form admin-form-card" method="post">
+            <input type="hidden" name="id">
+            <h3 id="category-form-title">Ajouter une catégorie</h3>
+            <div class="admin-form-grid">
+              <div class="field"><label for="category-name">Nom</label><input id="category-name" name="name" maxlength="100" required></div>
+              <div class="field"><label for="category-slug">Identifiant URL (slug)</label><input id="category-slug" name="slug" pattern="[a-z0-9-]+" maxlength="100" required></div>
+            </div>
+            <div class="field"><label for="category-description">Description</label><textarea id="category-description" name="description" maxlength="1000" rows="2"></textarea></div>
+            <label><input type="checkbox" name="is_active" checked> Catégorie visible dans le catalogue</label>
+            <div class="admin-actions"><button class="button" type="submit">Enregistrer</button><button id="category-cancel" class="button button--outline" type="button" hidden>Annuler</button></div>
+          </form>
+          <div id="admin-categories" class="admin-record-list"></div>
+        </section>
+
+        <section class="admin-panel" data-admin-panel="settings" hidden>
+          <div class="section-heading"><div><p class="eyebrow">Contenus publics</p><h2>Paramètres du site</h2></div><button class="button button--outline" type="button" data-export="settings">Exporter CSV</button></div>
+          <p class="notice">Ces paramètres sont accessibles publiquement au site : ne stockez aucun secret, identifiant privé ou donnée de fermier ici.</p>
+          <form id="settings-form" class="admin-form">
+            <fieldset class="surface admin-form-card">
+              <legend>Identité et accueil</legend>
+              <div class="admin-form-grid">
+                <div class="field"><label for="setting-brand">Nom du site</label><input id="setting-brand" name="brand_name" maxlength="80"></div>
+                <div class="field"><label for="setting-slogan">Slogan</label><input id="setting-slogan" name="home_slogan" maxlength="180"></div>
+              </div>
+              <label><input type="checkbox" name="brand_name_is_provisional" checked> Le nom reste provisoire</label>
+              <div class="field"><label for="setting-intro">Texte d’accueil</label><textarea id="setting-intro" name="home_intro" maxlength="500" rows="3"></textarea></div>
+              <div class="field"><label for="setting-banner">Image de bannière (URL HTTPS)</label><input id="setting-banner" name="banner_image_url" type="url" maxlength="1000" placeholder="https://…"></div>
+            </fieldset>
+            <fieldset class="surface admin-form-card">
+              <legend>Contact et réseaux</legend>
+              <div class="admin-form-grid">
+                <div class="field"><label for="setting-whatsapp">WhatsApp assistance (format international)</label><input id="setting-whatsapp" name="whatsapp" type="tel" maxlength="32"></div>
+                <div class="field"><label for="setting-email">E-mail assistance</label><input id="setting-email" name="email" type="email" maxlength="254"></div>
+                <div class="field"><label for="setting-phone">Téléphone assistance</label><input id="setting-phone" name="phone" type="tel" maxlength="32"></div>
+                <div class="field"><label for="setting-address">Adresse publique</label><input id="setting-address" name="address" maxlength="200"></div>
+                <div class="field"><label for="setting-facebook">Facebook (URL HTTPS)</label><input id="setting-facebook" name="facebook" type="url" maxlength="500"></div>
+                <div class="field"><label for="setting-instagram">Instagram (URL HTTPS)</label><input id="setting-instagram" name="instagram" type="url" maxlength="500"></div>
+                <div class="field"><label for="setting-tiktok">TikTok (URL HTTPS)</label><input id="setting-tiktok" name="tiktok" type="url" maxlength="500"></div>
+              </div>
+            </fieldset>
+            <fieldset class="surface admin-form-card">
+              <legend>Langues proposées</legend>
+              <p class="muted text-small">Les langues sont déclarées ici ; les traductions complètes seront ajoutées dans une étape dédiée.</p>
+              <div class="admin-language-options">
+                <label><input type="checkbox" name="languages" value="fr"> Français</label>
+                <label><input type="checkbox" name="languages" value="mos"> Mooré</label>
+                <label><input type="checkbox" name="languages" value="dyu"> Dioula</label>
+                <label><input type="checkbox" name="languages" value="ff"> Fulfuldé</label>
+              </div>
+            </fieldset>
+            <button class="button button--red" type="submit">Enregistrer les paramètres</button>
+          </form>
+        </section>
+
+        <section class="admin-panel" data-admin-panel="admins" hidden>
+          <div class="section-heading"><div><p class="eyebrow">Accès à privilèges</p><h2>Rôles et administrateurs</h2></div><button class="button button--outline" type="button" data-export="users">Exporter CSV</button></div>
+          <p class="notice">Pour inviter un nouvel administrateur, créez son utilisateur dans Supabase Auth puis sélectionnez son profil ici. Un administrateur ne peut ni modifier son propre rôle ni rétrograder le dernier compte admin. Ne rétrogradez pas une autre personne sans coordination.</p>
+          <div class="field"><label for="user-search">Rechercher un compte</label><input id="user-search" type="search" placeholder="Nom ou identifiant du compte…"></div>
+          <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Identité</th><th>Identifiant du compte</th><th>Rôle</th><th>Action</th></tr></thead><tbody id="admin-users"></tbody></table></div>
+        </section>
+
+        <section class="admin-panel" data-admin-panel="activity" hidden>
+          <div class="section-heading"><div><p class="eyebrow">Traçabilité des actions</p><h2>Journal d’activité</h2></div><button class="button button--outline" type="button" data-export="activity">Exporter CSV</button></div>
+          <div id="admin-activity" class="admin-record-list"></div>
+        </section>
+      </section>
+
+      <dialog id="farmer-delete-dialog" class="admin-dialog">
+        <form id="farmer-delete-form" class="admin-form" method="post">
+          <h2>Suppression définitive du compte</h2>
+          <p id="farmer-delete-description"></p>
+          <p class="notice notice--error">Cette action supprime l’utilisateur Auth, ses annonces, avis, justificatifs et photos. Elle est irréversible.</p>
+          <div class="field"><label for="farmer-delete-confirm">Saisissez le nom exact de la ferme pour confirmer</label><input id="farmer-delete-confirm" name="confirmation" autocomplete="off" required></div>
+          <div class="admin-actions"><button class="button button--red" type="submit">Supprimer définitivement</button><button class="button button--outline" type="button" data-close-delete>Annuler</button></div>
+        </form>
+      </dialog>
+    </main>
+    <div id="site-footer"></div>
+  </body>
+</html>

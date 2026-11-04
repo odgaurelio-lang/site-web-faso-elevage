@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Inscription et connexion sécurisées à l'espace fermier.">
+    <meta name="theme-color" content="#fcfaf6">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Compte fermier — Faso Élevage (nom provisoire)</title>
+    <link rel="icon" href="../icons/mark.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../icons/icon-192.png">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/auth.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+    <script defer src="../js/supabase-config.js"></script>
+    <script defer src="../js/auth.js"></script>
+  </head>
+  <body>
+    <noscript>
+      <p>Activez JavaScript pour utiliser les fonctions de compte. Aucune connexion ni inscription ne sera envoyée sans le SDK.</p>
+    </noscript>
+    <a class="sr-only" href="#contenu">Aller au contenu</a>
+    <main id="contenu" class="container auth-shell">
+      <header class="auth-topbar">
+        <a class="brand" href="../index.html">
+          <img class="brand-mark" src="../icons/mark.svg" alt="">
+          <span class="brand-name"><span>Faso</span> <span class="brand-name-accent">Élevage</span> <span class="muted text-small">(provisoire)</span></span>
+        </a>
+        <a class="button button--outline" href="../index.html">← Retour au site</a>
+      </header>
+
+      <section class="surface auth-card" aria-labelledby="page-title">
+        <p class="eyebrow">Espace fermier</p>
+        <h1 id="page-title">Votre élevage mérite d’être vu.</h1>
+        <p class="auth-intro">
+          Créez votre espace pour proposer vos stocks aux acheteurs du Burkina.
+          La validation du profil par l’équipe est nécessaire avant toute annonce.
+        </p>
+
+        <div id="auth-status" class="auth-status" role="status" aria-live="polite" hidden></div>
+
+        <section id="account-panel" aria-labelledby="account-heading" hidden>
+          <h2 id="account-heading">Votre compte</h2>
+          <div class="account-summary">
+            <p><strong id="account-name"></strong></p>
+            <p id="account-farm" class="muted"></p>
+            <p>Rôle : <strong id="account-role"></strong></p>
+            <p id="account-state" class="muted"></p>
+          </div>
+          <a id="farmer-dashboard-link" class="button button--full" href="tableau-fermier.html" hidden>Accéder à mon espace fermier</a>
+          <a id="admin-dashboard-link" class="button button--red button--full" href="admin.html" hidden>Ouvrir l’espace administration (MFA requise)</a>
+          <button id="sign-out-button" class="button button--outline button--full" type="button">Se déconnecter</button>
+        </section>
+
+        <div id="auth-forms">
+          <div class="auth-switcher" role="group" aria-label="Choisir une action">
+            <button type="button" data-auth-view="sign-in" aria-pressed="true">Connexion</button>
+            <button type="button" data-auth-view="sign-up" aria-pressed="false">Inscription fermier</button>
+          </div>
+
+          <form id="sign-in-form" class="auth-form" data-auth-action data-auth-panel="sign-in" method="post">
+            <fieldset disabled>
+            <h2>Se connecter</h2>
+            <div class="field">
+              <label for="sign-in-email">Adresse e-mail</label>
+              <input id="sign-in-email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="sign-in-password">Mot de passe</label>
+              <input id="sign-in-password" name="password" type="password" autocomplete="current-password" required>
+            </div>
+            <button class="button button--full" type="submit">Connexion</button>
+            <button class="button button--outline button--full" type="button" data-auth-view="reset">Mot de passe oublié ?</button>
+            </fieldset>
+          </form>
+
+          <form id="sign-up-form" class="auth-form" data-auth-action data-auth-panel="sign-up" method="post" hidden>
+            <fieldset disabled>
+            <h2>Créer un compte fermier</h2>
+            <div class="auth-fields auth-fields--two">
+              <div class="field">
+                <label for="full-name">Nom complet</label>
+                <input id="full-name" name="full_name" autocomplete="name" maxlength="120" required>
+              </div>
+              <div class="field">
+                <label for="phone">Téléphone de contact (facultatif)</label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="32">
+              </div>
+              <div class="field">
+                <label for="farm-name">Nom de la ferme</label>
+                <input id="farm-name" name="farm_name" maxlength="160" required>
+              </div>
+              <div class="field">
+                <label for="whatsapp-phone">Téléphone WhatsApp de la ferme</label>
+                <input id="whatsapp-phone" name="whatsapp_phone" type="tel" autocomplete="tel" minlength="8" maxlength="32" required>
+              </div>
+              <div class="field">
+                <label for="city">Ville</label>
+                <select id="city" name="city" required>
+                  <option value="">Choisir une ville</option>
+                  <option>Ouagadougou</option>
+                  <option>Bobo-Dioulasso</option>
+                  <option>Koudougou</option>
+                  <option>Ouahigouya</option>
+                  <option>Banfora</option>
+                  <option>Autre ville du Burkina</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="commune">Commune ou village (facultatif)</label>
+                <input id="commune" name="commune" maxlength="100">
+              </div>
+            </div>
+            <div class="field">
+              <label for="bio">Présentation de la ferme (facultatif)</label>
+              <textarea id="bio" name="bio" rows="3" maxlength="2000"></textarea>
+            </div>
+            <div class="field">
+              <label for="sign-up-email">Adresse e-mail</label>
+              <input id="sign-up-email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="auth-fields auth-fields--two">
+              <div class="field">
+                <label for="sign-up-password">Mot de passe (12 caractères minimum)</label>
+                <input id="sign-up-password" name="password" type="password" autocomplete="new-password" minlength="12" required>
+              </div>
+              <div class="field">
+                <label for="password-confirmation">Confirmer le mot de passe</label>
+                <input id="password-confirmation" name="password_confirmation" type="password" autocomplete="new-password" minlength="12" required>
+              </div>
+            </div>
+            <p class="auth-note">
+              Votre compte démarre en attente. Un justificatif d’identité est
+              facultatif ; s’il est demandé, transmettez-le uniquement dans
+              l’espace sécurisé prévu à cet effet, jamais par un formulaire public.
+            </p>
+            <button class="button button--red button--full" type="submit">Demander mon inscription</button>
+            </fieldset>
+          </form>
+
+          <form id="reset-form" class="auth-form" data-auth-action data-auth-panel="reset" method="post" hidden>
+            <fieldset disabled>
+            <h2>Réinitialiser le mot de passe</h2>
+            <p class="muted">Nous vous enverrons un lien à l’adresse associée au compte.</p>
+            <div class="field">
+              <label for="reset-email">Adresse e-mail</label>
+              <input id="reset-email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <button class="button button--full" type="submit">Envoyer le lien</button>
+            <button class="button button--outline button--full" type="button" data-auth-view="sign-in">Retour à la connexion</button>
+            </fieldset>
+          </form>
+
+          <form id="new-password-form" class="auth-form" data-auth-action data-auth-panel="new-password" method="post" hidden>
+            <fieldset disabled>
+            <h2>Choisir un nouveau mot de passe</h2>
+            <div class="field">
+              <label for="new-password">Nouveau mot de passe (12 caractères minimum)</label>
+              <input id="new-password" name="password" type="password" autocomplete="new-password" minlength="12" required>
+            </div>
+            <div class="field">
+              <label for="new-password-confirmation">Confirmer le mot de passe</label>
+              <input id="new-password-confirmation" name="password_confirmation" type="password" autocomplete="new-password" minlength="12" required>
+            </div>
+            <button class="button button--full" type="submit">Enregistrer le mot de passe</button>
+            </fieldset>
+          </form>
+        </div>
+
+        <p class="auth-footer">Votre numéro WhatsApp sert aux acheteurs pour vous contacter directement.</p>
+      </section>
+    </main>
+  </body>
+</html>

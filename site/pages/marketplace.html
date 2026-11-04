@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0e4b31">
+    <meta name="description" content="Marketplace d’élevage au Burkina Faso : comparez les offres de gros et de détail des fermiers.">
+    <link rel="icon" href="../icons/mark.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../icons/icon-192.png">
+    <link rel="manifest" href="../manifest.webmanifest">
+    <title>Marketplace des fermiers — Faso Élevage</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/client.css">
+    <link rel="stylesheet" href="../css/farmer-platform.css">
+    <script defer src="../js/supabase-config.js"></script>
+    <script defer src="../js/i18n.js"></script>
+    <script defer src="../js/client-shell.js"></script>
+    <script defer src="../js/client.js"></script>
+    <script defer src="../js/farmer-platform.js"></script>
+  </head>
+  <body data-page="marketplace" data-site-base="../">
+    <a class="sr-only" href="#main">Aller au contenu</a>
+    <div id="site-header"></div>
+    <main id="main" class="container platform-main">
+      <div id="platform-notice" class="notice platform-banner" role="status" aria-live="polite" hidden></div>
+      <header class="platform-intro">
+        <p class="eyebrow">Stocks du Burkina Faso</p>
+        <h1>Marketplace des fermiers</h1>
+        <p>Comparez les offres de détail et de gros, trouvez un stock près de vous et demandez directement un devis à l’éleveur.</p>
+      </header>
+      <div class="marketplace-layout">
+        <form id="marketplace-filters" class="surface marketplace-filters" method="get">
+          <div class="field">
+            <label for="market-search">Recherche</label>
+            <input id="market-search" name="q" type="search" placeholder="Animal, race, ville…" autocomplete="off">
+          </div>
+          <div class="marketplace-filter-grid">
+            <div class="field">
+              <label for="market-category">Espèce</label>
+              <select id="market-category" name="category">
+                <option value="">Toutes</option>
+                <option value="volailles">Volailles</option>
+                <option value="bovins">Bovins</option>
+                <option value="ovins">Ovins</option>
+                <option value="caprins">Caprins</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="market-city">Ville</label>
+              <select id="market-city" name="city">
+                <option value="">Toutes les villes</option>
+                <option>Ouagadougou</option>
+                <option>Bobo-Dioulasso</option>
+                <option>Koudougou</option>
+                <option>Ouahigouya</option>
+                <option>Banfora</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="market-sale-type">Type de vente</label>
+              <select id="market-sale-type" name="saleType">
+                <option value="">Détail et gros</option>
+                <option value="retail">Détail</option>
+                <option value="wholesale">Gros / devis</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="market-sort">Trier par</label>
+              <select id="market-sort" name="sort">
+                <option value="recent">Plus récentes</option>
+                <option value="price-asc">Prix croissant</option>
+                <option value="price-desc">Prix décroissant</option>
+                <option value="quantity">Stock disponible</option>
+              </select>
+            </div>
+            <label class="text-small"><input type="checkbox" name="verified"> Fermiers vérifiés uniquement</label>
+            <button type="reset" class="button button--outline">Réinitialiser</button>
+          </div>
+        </form>
+        <section aria-labelledby="market-results-title">
+          <div class="platform-toolbar">
+            <div><h2 id="market-results-title" style="margin:0">Offres et stocks</h2><p id="market-results-count" class="muted text-small" aria-live="polite"></p></div>
+            <a class="button button--outline" href="authentification.html">Vendre sur la marketplace</a>
+          </div>
+          <div id="market-results" class="catalog-products" aria-live="polite">
+            <p class="muted">Chargement des offres…</p>
+          </div>
+        </section>
+      </div>
+    </main>
+    <div id="site-footer"></div>
+  </body>
+</html>

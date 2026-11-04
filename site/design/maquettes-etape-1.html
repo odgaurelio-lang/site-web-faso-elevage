@@ -1,0 +1,704 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#fcfaf6">
+    <meta name="description" content="Maquettes mobiles du marché de l'élevage burkinabè.">
+    <title>Maquettes — Faso Élevage (nom provisoire)</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <style>
+      .prototype-header {
+        padding: var(--space-5) 0;
+        border-bottom: 1px solid var(--color-line);
+        background: var(--color-white);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        color: var(--color-ink);
+        font-weight: 850;
+        text-decoration: none;
+      }
+
+      .brand-mark {
+        width: 2.5rem;
+        aspect-ratio: 1;
+        border-radius: 0.6rem;
+      }
+
+      .prototype-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-2) var(--space-4);
+        margin-top: var(--space-4);
+        font-size: var(--text-sm);
+      }
+
+      .prototype-nav a {
+        color: var(--color-muted);
+        font-weight: 700;
+      }
+
+      .intro {
+        padding-block: var(--space-8) var(--space-6);
+      }
+
+      .intro h1 {
+        max-width: 48rem;
+        margin-bottom: var(--space-3);
+        font-size: var(--text-2xl);
+      }
+
+      .intro p {
+        max-width: 42rem;
+        margin-bottom: 0;
+        color: var(--color-muted);
+      }
+
+      .screen-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-8);
+        padding-bottom: var(--space-10);
+      }
+
+      .screen-title {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: var(--space-3);
+        margin-bottom: var(--space-3);
+      }
+
+      .screen-title h2 {
+        margin: 0;
+        font-size: var(--text-xl);
+      }
+
+      .screen-title span {
+        color: var(--color-ochre);
+        font-size: var(--text-xs);
+        font-weight: 800;
+      }
+
+      .phone {
+        overflow: hidden;
+        border: 1px solid var(--color-line);
+        border-radius: var(--radius-lg);
+        background: var(--color-white);
+        box-shadow: var(--shadow-float);
+      }
+
+      .phone-top {
+        display: flex;
+        min-height: 3.5rem;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.7rem 1rem;
+        border-bottom: 1px solid var(--color-line);
+      }
+
+      .phone-content {
+        padding: 1rem;
+      }
+
+      .phone-brand {
+        font-size: var(--text-sm);
+      }
+
+      .icon-button {
+        display: grid;
+        width: 2.7rem;
+        min-height: 2.7rem;
+        place-items: center;
+        border: 1px solid var(--color-line);
+        border-radius: 50%;
+        background: var(--color-white);
+        font-size: 1.15rem;
+      }
+
+      .hero {
+        position: relative;
+        overflow: hidden;
+        padding: 1.5rem 1.15rem;
+        border-radius: var(--radius-md);
+        background:
+          radial-gradient(ellipse at 92% 10%, rgb(228 173 39 / 38%), transparent 34%),
+          linear-gradient(145deg, #f8eddb, #eee0c8);
+      }
+
+      .hero::after {
+        position: absolute;
+        right: -1rem;
+        bottom: -1.6rem;
+        width: 8rem;
+        height: 8rem;
+        border: 1.5rem solid rgb(23 107 69 / 12%);
+        border-radius: 50%;
+        content: "";
+      }
+
+      .hero h2 {
+        position: relative;
+        z-index: 1;
+        max-width: 15rem;
+        margin-bottom: var(--space-3);
+        font-size: 1.8rem;
+      }
+
+      .hero p {
+        position: relative;
+        z-index: 1;
+        max-width: 18rem;
+        color: #534b3e;
+        font-size: var(--text-sm);
+      }
+
+      .hero .button {
+        position: relative;
+        z-index: 1;
+      }
+
+      .trust-line {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-2);
+        margin-top: var(--space-4);
+      }
+
+      .category-row {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: var(--space-2);
+        margin-block: var(--space-5);
+      }
+
+      .category {
+        display: grid;
+        min-height: 4.7rem;
+        align-content: center;
+        justify-items: center;
+        gap: 0.2rem;
+        border: 1px solid var(--color-line);
+        border-radius: var(--radius-sm);
+        background: var(--color-cream);
+        color: var(--color-ink);
+        font-size: 0.68rem;
+        font-weight: 750;
+        text-align: center;
+        text-decoration: none;
+      }
+
+      .category span:first-child {
+        font-size: 1.25rem;
+      }
+
+      .product-list {
+        display: grid;
+        gap: var(--space-3);
+      }
+
+      .product-card {
+        overflow: hidden;
+      }
+
+      .product-art {
+        display: grid;
+        min-height: 9rem;
+        place-items: center;
+        background:
+          radial-gradient(ellipse at 50% 80%, rgb(23 107 69 / 18%), transparent 45%),
+          linear-gradient(140deg, #eee0c8, #f9f3e8);
+        font-size: 3.6rem;
+      }
+
+      .product-info {
+        padding: var(--space-4);
+      }
+
+      .product-info h3 {
+        margin: var(--space-2) 0 0.2rem;
+        font-size: var(--text-base);
+      }
+
+      .product-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem var(--space-3);
+        margin: var(--space-2) 0;
+        color: var(--color-muted);
+        font-size: var(--text-xs);
+      }
+
+      .product-price {
+        margin: var(--space-2) 0 var(--space-3);
+        color: var(--color-green-dark);
+        font-size: var(--text-lg);
+        font-weight: 850;
+      }
+
+      .steps {
+        display: grid;
+        gap: var(--space-3);
+        margin-top: var(--space-5);
+      }
+
+      .step {
+        display: flex;
+        gap: var(--space-3);
+        align-items: start;
+      }
+
+      .step-number {
+        display: grid;
+        width: 2rem;
+        flex: 0 0 2rem;
+        aspect-ratio: 1;
+        place-items: center;
+        border-radius: 50%;
+        background: var(--color-warning-bg);
+        color: #704b00;
+        font-weight: 850;
+      }
+
+      .step p {
+        margin: 0;
+        font-size: var(--text-sm);
+      }
+
+      .filter-row {
+        display: flex;
+        gap: var(--space-2);
+        overflow-x: auto;
+        padding-bottom: var(--space-2);
+      }
+
+      .filter-chip {
+        flex: 0 0 auto;
+        min-height: 2.6rem;
+        padding: 0.55rem 0.8rem;
+        border: 1px solid var(--color-line);
+        border-radius: 999px;
+        background: var(--color-white);
+        color: var(--color-ink);
+        font-size: var(--text-sm);
+        font-weight: 700;
+      }
+
+      .search-box {
+        display: flex;
+        gap: var(--space-2);
+        margin-bottom: var(--space-3);
+      }
+
+      .search-box input {
+        min-width: 0;
+        min-height: 2.9rem;
+        flex: 1;
+        padding: 0.65rem 0.8rem;
+        border: 1px solid var(--color-line);
+        border-radius: var(--radius-sm);
+      }
+
+      .detail-art {
+        min-height: 15rem;
+        border-radius: var(--radius-md);
+        font-size: 5rem;
+      }
+
+      .thumbnail-row {
+        display: flex;
+        gap: var(--space-2);
+        margin-top: var(--space-2);
+      }
+
+      .thumbnail {
+        display: grid;
+        width: 3.5rem;
+        aspect-ratio: 1;
+        place-items: center;
+        border: 1px solid var(--color-line);
+        border-radius: var(--radius-sm);
+        background: var(--color-sand);
+      }
+
+      .details-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-3);
+        padding: var(--space-4) 0;
+        border-block: 1px solid var(--color-line);
+      }
+
+      .details-list div {
+        display: grid;
+        gap: 0.2rem;
+      }
+
+      .details-list dt {
+        color: var(--color-muted);
+        font-size: var(--text-xs);
+      }
+
+      .details-list dd {
+        margin: 0;
+        font-size: var(--text-sm);
+        font-weight: 750;
+      }
+
+      .farmer-row {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+        margin-block: var(--space-4);
+      }
+
+      .avatar {
+        display: grid;
+        width: 2.8rem;
+        aspect-ratio: 1;
+        flex: 0 0 2.8rem;
+        place-items: center;
+        border-radius: 50%;
+        background: var(--color-sand);
+        color: var(--color-ochre);
+        font-weight: 850;
+      }
+
+      .farmer-row p {
+        margin: 0;
+        font-size: var(--text-sm);
+      }
+
+      .dashboard-welcome {
+        margin-bottom: var(--space-4);
+      }
+
+      .dashboard-welcome h2 {
+        margin-bottom: 0.25rem;
+        font-size: var(--text-xl);
+      }
+
+      .metric-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-2);
+        margin-block: var(--space-4);
+      }
+
+      .metric {
+        padding: var(--space-3);
+        border: 1px solid var(--color-line);
+        border-radius: var(--radius-sm);
+        background: var(--color-cream);
+      }
+
+      .metric strong {
+        display: block;
+        color: var(--color-green-dark);
+        font-size: var(--text-xl);
+      }
+
+      .metric span {
+        color: var(--color-muted);
+        font-size: var(--text-xs);
+      }
+
+      .listing-row {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+        padding-block: var(--space-3);
+        border-bottom: 1px solid var(--color-line);
+      }
+
+      .listing-thumb {
+        display: grid;
+        width: 3.6rem;
+        aspect-ratio: 1;
+        flex: 0 0 3.6rem;
+        place-items: center;
+        border-radius: var(--radius-sm);
+        background: var(--color-sand);
+        font-size: 1.8rem;
+      }
+
+      .listing-row p {
+        flex: 1;
+        margin: 0;
+        font-size: var(--text-sm);
+      }
+
+      .listing-row strong {
+        display: block;
+      }
+
+      .prototype-footer {
+        padding-block: var(--space-5);
+        border-top: 1px solid var(--color-line);
+        color: var(--color-muted);
+        font-size: var(--text-sm);
+      }
+
+      @media (min-width: 48rem) {
+        .prototype-header .container {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .prototype-nav {
+          margin-top: 0;
+        }
+
+        .screen-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          align-items: start;
+        }
+
+        .phone-content {
+          padding: 1.25rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="prototype-header">
+      <div class="container">
+        <a class="brand" href="#accueil" aria-label="Faso Élevage, maquettes">
+          <img class="brand-mark" src="../icons/mark.svg" alt="">
+          <span>Faso Élevage <span class="muted text-small">(provisoire)</span></span>
+        </a>
+        <nav class="prototype-nav" aria-label="Accès aux maquettes">
+          <a href="#accueil">Accueil</a>
+          <a href="#catalogue">Catalogue</a>
+          <a href="#produit">Fiche produit</a>
+          <a href="#fermier">Espace fermier</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="intro">
+        <p class="eyebrow">Étape 1 · Direction artistique</p>
+        <h1>Du terroir burkinabè à votre table.</h1>
+        <p>
+          Une interface chaleureuse, claire et rassurante : les repères du Faso
+          donnent du caractère sans gêner la lecture ni ralentir les commandes.
+          Les visuels animaux ci-dessous sont des emplacements de maquette à
+          remplacer par des photos réelles des fermiers.
+        </p>
+      </section>
+
+      <div class="motif-divider" aria-hidden="true"></div>
+
+      <div class="screen-grid">
+        <section id="accueil" aria-labelledby="titre-accueil">
+          <div class="screen-title">
+            <h2 id="titre-accueil">Accueil</h2>
+            <span>CLIENT · MOBILE</span>
+          </div>
+          <div class="phone">
+            <div class="phone-top">
+              <a class="brand phone-brand" href="#accueil">
+                <img class="brand-mark" src="../icons/mark.svg" alt="">
+                <span>Faso Élevage</span>
+              </a>
+              <button class="icon-button" type="button" aria-label="Ouvrir le panier">♧</button>
+            </div>
+            <div class="phone-content">
+              <div class="hero">
+                <p class="eyebrow">Consommons local</p>
+                <h2>Le meilleur de nos élevages, près de chez vous.</h2>
+                <p>Des fermiers identifiés. Des stocks confirmés. Un contact direct.</p>
+                <a class="button button--red" href="#catalogue">Voir les produits</a>
+              </div>
+              <div class="trust-line">
+                <span class="badge badge--gold">★ Made in Burkina</span>
+                <span class="badge">✓ Fermiers vérifiés</span>
+              </div>
+              <div class="section-heading" style="margin-top: 1.5rem">
+                <h2>Nos élevages</h2>
+                <a class="text-small" href="#catalogue">Tout voir</a>
+              </div>
+              <div class="category-row" aria-label="Catégories">
+                <a class="category" href="#catalogue"><span aria-hidden="true">🐔</span><span>Volailles</span></a>
+                <a class="category" href="#catalogue"><span aria-hidden="true">🐄</span><span>Bovins</span></a>
+                <a class="category" href="#catalogue"><span aria-hidden="true">🐑</span><span>Ovins</span></a>
+                <a class="category" href="#catalogue"><span aria-hidden="true">🐐</span><span>Caprins</span></a>
+              </div>
+              <div class="section-heading">
+                <h2>À la une</h2>
+                <a class="text-small" href="#catalogue">Explorer</a>
+              </div>
+              <article class="surface product-card">
+                <div class="product-art" aria-label="Photo à ajouter : poulet local">🐓</div>
+                <div class="product-info">
+                  <span class="badge badge--gold">★ Made in Burkina</span>
+                  <h3>Poulets locaux élevés au village</h3>
+                  <div class="product-meta"><span>📍 Koudougou</span><span>Stock confirmé</span></div>
+                  <p class="product-price">4 500 FCFA <span class="muted text-small">/ tête</span></p>
+                  <a class="button button--outline button--full" href="#produit">Voir le produit</a>
+                </div>
+              </article>
+              <div class="section-heading" style="margin-top: 1.5rem">
+                <h2>Simple comme bonjour</h2>
+              </div>
+              <div class="steps">
+                <div class="step"><span class="step-number">1</span><p><strong>Choisissez</strong><br>Parcourez les offres près de chez vous.</p></div>
+                <div class="step"><span class="step-number">2</span><p><strong>Vérifiez</strong><br>Consultez le stock et le profil du fermier.</p></div>
+                <div class="step"><span class="step-number">3</span><p><strong>Contactez</strong><br>Finalisez directement sur WhatsApp.</p></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="catalogue" aria-labelledby="titre-catalogue">
+          <div class="screen-title">
+            <h2 id="titre-catalogue">Catalogue</h2>
+            <span>RECHERCHE · FILTRES</span>
+          </div>
+          <div class="phone">
+            <div class="phone-top">
+              <a class="brand phone-brand" href="#accueil"><img class="brand-mark" src="../icons/mark.svg" alt=""><span>Catalogue</span></a>
+              <button class="icon-button" type="button" aria-label="Ouvrir le panier">♧</button>
+            </div>
+            <div class="phone-content">
+              <p class="eyebrow">Le marché du Faso</p>
+              <h2 style="margin-bottom: 1rem">Trouvez votre élevage</h2>
+              <form class="search-box" role="search">
+                <label class="sr-only" for="recherche">Produit, race ou ville</label>
+                <input id="recherche" type="search" placeholder="Produit, race ou ville">
+                <button class="button" type="submit" aria-label="Rechercher">⌕</button>
+              </form>
+              <div class="filter-row" aria-label="Filtres rapides">
+                <button class="filter-chip" type="button">Espèce⌄</button>
+                <button class="filter-chip" type="button">Ville⌄</button>
+                <button class="filter-chip" type="button">Prix⌄</button>
+                <button class="filter-chip" type="button">En stock</button>
+              </div>
+              <p class="muted text-small" style="margin: 1rem 0">24 offres · Trier : <strong>Plus récentes⌄</strong></p>
+              <div class="product-list">
+                <article class="surface product-card">
+                  <div class="product-art" aria-label="Photo à ajouter : mouton Bali-Bali">🐏</div>
+                  <div class="product-info">
+                    <span class="badge">✓ Fermier vérifié</span>
+                    <h3>Mouton Bali-Bali, prêt pour la saison</h3>
+                    <div class="product-meta"><span>📍 Ouagadougou</span><span>12 disponibles</span><span>35–40 kg</span></div>
+                    <p class="product-price">85 000 FCFA <span class="muted text-small">/ tête</span></p>
+                    <a class="button button--outline button--full" href="#produit">Détails et contact</a>
+                  </div>
+                </article>
+                <article class="surface product-card">
+                  <div class="product-art" aria-label="Photo à ajouter : chèvre locale">🐐</div>
+                  <div class="product-info">
+                    <span class="badge badge--gold">Stock confirmé</span>
+                    <h3>Chèvres locales, élevage familial</h3>
+                    <div class="product-meta"><span>📍 Banfora</span><span>8 disponibles</span><span>12–16 kg</span></div>
+                    <p class="product-price">32 000 FCFA <span class="muted text-small">/ tête</span></p>
+                    <a class="button button--outline button--full" href="#produit">Détails et contact</a>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="produit" aria-labelledby="titre-produit">
+          <div class="screen-title">
+            <h2 id="titre-produit">Fiche produit</h2>
+            <span>CONFIANCE · CONTACT</span>
+          </div>
+          <div class="phone">
+            <div class="phone-top">
+              <a href="#catalogue">← <span class="text-small">Retour au catalogue</span></a>
+              <button class="icon-button" type="button" aria-label="Partager l'annonce">↗</button>
+            </div>
+            <div class="phone-content">
+              <div class="product-art detail-art" aria-label="Photo à ajouter : mouton Bali-Bali">🐏</div>
+              <div class="thumbnail-row" aria-label="Galerie photos">
+                <span class="thumbnail" aria-label="Photo 1">🐏</span>
+                <span class="thumbnail" aria-label="Photo 2">🌾</span>
+                <span class="thumbnail" aria-label="Photo 3">🏡</span>
+              </div>
+              <div style="margin-top: 1rem">
+                <span class="badge badge--gold">★ Stock confirmé</span>
+                <h2 style="margin: 0.65rem 0">Mouton Bali-Bali</h2>
+                <p class="muted text-small">📍 Tampouy, Ouagadougou · Disponible maintenant</p>
+                <p class="product-price" style="font-size: 1.5rem">85 000 FCFA <span class="muted text-small">/ tête</span></p>
+              </div>
+              <dl class="details-list">
+                <div><dt>Espèce / race</dt><dd>Ovin · Bali-Bali</dd></div>
+                <div><dt>Âge moyen</dt><dd>18 mois</dd></div>
+                <div><dt>Poids estimé</dt><dd>35–40 kg</dd></div>
+                <div><dt>Quantité disponible</dt><dd>12 têtes</dd></div>
+                <div><dt>Minimum de commande</dt><dd>1 tête</dd></div>
+                <div><dt>Vente en gros</dt><dd>Sur demande</dd></div>
+              </dl>
+              <div class="farmer-row">
+                <span class="avatar" aria-hidden="true">SA</span>
+                <p><strong>Ferme Sahel Vert</strong><br><span class="muted">✓ Fermier vérifié · Ouagadougou</span></p>
+              </div>
+              <p class="text-small">Élevage familial suivi avec soin. Contactez le fermier pour confirmer la disponibilité et organiser le retrait.</p>
+              <a class="button button--full" href="#produit">Commander sur WhatsApp</a>
+              <p class="muted text-small" style="margin: 0.65rem 0 0; text-align: center">Vous échangerez directement avec le fermier.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="fermier" aria-labelledby="titre-fermier">
+          <div class="screen-title">
+            <h2 id="titre-fermier">Tableau fermier</h2>
+            <span>PORTAIL FERMIER</span>
+          </div>
+          <div class="phone">
+            <div class="phone-top">
+              <a class="brand phone-brand" href="#fermier"><img class="brand-mark" src="../icons/mark.svg" alt=""><span>Mon élevage</span></a>
+              <button class="icon-button" type="button" aria-label="Ouvrir le menu">☰</button>
+            </div>
+            <div class="phone-content">
+              <div class="dashboard-welcome">
+                <p class="eyebrow">Espace fermier</p>
+                <h2>Bonjour, Awa 👋</h2>
+                <p class="muted text-small">Ferme Sahel Vert · Ouagadougou</p>
+              </div>
+              <span class="badge">✓ Profil vérifié</span>
+              <div class="metric-grid">
+                <div class="metric"><strong>08</strong><span>Annonces actives</span></div>
+                <div class="metric"><strong>126</strong><span>Vues ce mois</span></div>
+                <div class="metric"><strong>24</strong><span>Clics WhatsApp</span></div>
+                <div class="metric"><strong>03</strong><span>Stocks à confirmer</span></div>
+              </div>
+              <a class="button button--red button--full" href="#fermier">＋ Ajouter un stock</a>
+              <div class="section-heading" style="margin-top: 1.5rem">
+                <h2>Mes annonces</h2>
+                <a class="text-small" href="#fermier">Tout voir</a>
+              </div>
+              <div class="listing-row">
+                <span class="listing-thumb" aria-hidden="true">🐏</span>
+                <p><strong>Moutons Bali-Bali</strong><span class="muted">12 têtes · 85 000 FCFA</span></p>
+                <span class="badge">En ligne</span>
+              </div>
+              <div class="listing-row">
+                <span class="listing-thumb" aria-hidden="true">🐓</span>
+                <p><strong>Poulets locaux</strong><span class="muted">25 têtes · 4 500 FCFA</span></p>
+                <span class="badge badge--gold">À confirmer</span>
+              </div>
+              <p class="muted text-small" style="margin: 1rem 0 0">Conseil : confirmez vos quantités pour rassurer les acheteurs.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="prototype-footer">
+      <div class="container">
+        Maquettes de direction visuelle · Mobile-first · Images et marque à confirmer
+      </div>
+    </footer>
+  </body>
+</html>

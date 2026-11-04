@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0e4b31">
+    <meta name="description" content="Découvrez les offres des élevages du Burkina Faso et contactez les fermiers directement sur WhatsApp.">
+    <link rel="icon" href="icons/mark.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <link rel="manifest" href="manifest.webmanifest">
+    <title>Faso Élevage — Du terroir burkinabè à votre table</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/client.css">
+    <script defer src="js/supabase-config.js"></script>
+    <script defer src="js/i18n.js"></script>
+    <script defer src="js/client-shell.js"></script>
+    <script defer src="js/client.js"></script>
+  </head>
+  <body data-page="home" data-site-base="">
+    <a class="sr-only" href="#main">Aller au contenu</a>
+    <div id="site-header"></div>
+    <main id="main">
+      <div id="page-notice" class="notice container" role="status" aria-live="polite" style="margin-top:1rem" hidden></div>
+      <section class="hero-home">
+        <div class="container hero-inner">
+          <div class="hero-copy">
+            <p class="eyebrow">Consommons local · Burkina Faso</p>
+            <h1 data-home-slogan>Du terroir burkinabè à votre table.</h1>
+            <p data-home-intro>Découvrez les élevages près de chez vous et échangez directement avec les fermiers pour confirmer le stock, le prix et les modalités.</p>
+            <div class="hero-actions">
+              <a class="button button--red" href="pages/catalogue.html">Explorer les offres</a>
+              <a class="button button--outline" href="pages/informations/a-propos.html">Comment ça marche ?</a>
+            </div>
+            <div class="hero-trust">
+              <span class="badge badge--gold">★ Made in Burkina</span>
+              <span class="badge">✓ Profils vérifiés signalés</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="motif-divider" aria-hidden="true"></div>
+
+      <section class="content-section">
+        <div class="container">
+          <div class="section-heading">
+            <div><p class="eyebrow">Le marché du Faso</p><h2>Choisissez votre élevage</h2></div>
+            <a href="pages/catalogue.html">Toutes les offres →</a>
+          </div>
+          <div id="home-categories" class="category-grid"></div>
+        </div>
+      </section>
+
+      <section class="content-section content-section--sand">
+        <div class="container">
+          <div class="section-heading">
+            <div><p class="eyebrow">Sélection locale</p><h2>À découvrir près de chez vous</h2></div>
+            <a href="pages/catalogue.html">Voir le catalogue →</a>
+          </div>
+          <div id="featured-products" class="product-grid">
+            <p class="muted">Chargement des offres…</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <div class="container">
+          <div class="section-heading">
+            <div><p class="eyebrow">Simple et direct</p><h2>Comment ça marche ?</h2></div>
+          </div>
+          <div class="how-grid">
+            <article class="how-card"><span class="how-number">1</span><div><h3>Choisissez</h3><p>Parcourez les offres et filtrez par espèce, ville ou prix.</p></div></article>
+            <article class="how-card"><span class="how-number">2</span><div><h3>Vérifiez</h3><p>Consultez les informations disponibles et demandez confirmation du stock.</p></div></article>
+            <article class="how-card"><span class="how-number">3</span><div><h3>Échangez</h3><p>Préparez votre demande puis discutez directement avec le fermier sur WhatsApp.</p></div></article>
+          </div>
+          <p class="notice" style="margin-top:1.5rem">Le site ne prend pas de paiement et ne confirme pas la vente. Convenez directement avec le fermier du prix final, du retrait et de la livraison.</p>
+        </div>
+      </section>
+
+      <section class="content-section content-section--sand">
+        <div class="container">
+          <div class="section-heading">
+            <div><p class="eyebrow">Paroles partagées</p><h2>Avis publiés</h2></div>
+          </div>
+          <div id="home-reviews" class="review-grid"><p class="muted">Chargement des avis…</p></div>
+        </div>
+      </section>
+
+      <section class="content-section content-section--green">
+        <div class="container">
+          <p class="eyebrow">Éleveur au Burkina Faso ?</p>
+          <h2>Faites connaître vos stocks.</h2>
+          <p>Créez un espace fermier. Votre profil sera examiné avant la publication d’annonces.</p>
+          <a class="button button--red" href="pages/authentification.html">Rejoindre la plateforme</a>
+        </div>
+      </section>
+    </main>
+    <div id="site-footer"></div>
+  </body>
+</html>

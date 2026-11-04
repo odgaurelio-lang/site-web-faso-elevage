@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Remplacer le domaine fictif par le domaine canonique avant publication. -->
+  <url><loc>https://votre-domaine.example/</loc></url>
+  <url><loc>https://votre-domaine.example/pages/catalogue.html</loc></url>
+  <url><loc>https://votre-domaine.example/pages/marketplace.html</loc></url>
+  <url><loc>https://votre-domaine.example/pages/informations/a-propos.html</loc></url>
+  <url><loc>https://votre-domaine.example/pages/informations/conseils.html</loc></url>
+  <url><loc>https://votre-domaine.example/pages/informations/contact.html</loc></url>
+  <url><loc>https://votre-domaine.example/pages/informations/faq.html</loc></url>
+  <url><loc>https://votre-domaine.example/pages/informations/conditions.html</loc></url>
+  <url><loc>https://votre-domaine.example/pages/informations/confidentialite.html</loc></url>
+</urlset>

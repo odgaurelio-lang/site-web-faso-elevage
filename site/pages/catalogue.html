@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0e4b31">
+    <meta name="description" content="Recherchez des volailles, bovins, ovins et caprins au Burkina Faso.">
+    <link rel="icon" href="../icons/mark.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="../icons/icon-192.png">
+    <link rel="manifest" href="../manifest.webmanifest">
+    <title>Catalogue des élevages — Faso Élevage</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/client.css">
+    <script defer src="../js/supabase-config.js"></script>
+    <script defer src="../js/i18n.js"></script>
+    <script defer src="../js/client-shell.js"></script>
+    <script defer src="../js/client.js"></script>
+  </head>
+  <body data-page="catalogue" data-site-base="../">
+    <a class="sr-only" href="#main">Aller au contenu</a>
+    <div id="site-header"></div>
+    <main id="main" class="container">
+      <div id="page-notice" class="notice" role="status" aria-live="polite" style="margin-top:1rem" hidden></div>
+      <header class="page-intro">
+        <p class="eyebrow">Volailles · Bovins · Ovins · Caprins</p>
+        <h1>Le catalogue des élevages</h1>
+        <p>Recherchez une offre, comparez les informations et confirmez les détails directement avec le fermier.</p>
+      </header>
+      <div class="catalog-layout">
+        <form id="catalogue-filters" class="surface filter-panel">
+          <div class="field">
+            <label for="catalogue-search">Rechercher</label>
+            <input id="catalogue-search" type="search" placeholder="Nom, race, ville…" autocomplete="off">
+          </div>
+          <div class="filter-grid">
+            <div class="field">
+              <label for="filter-category">Espèce</label>
+              <select id="filter-category" name="category">
+                <option value="">Toutes les espèces</option>
+                <option value="volailles">Volailles</option>
+                <option value="bovins">Bovins</option>
+                <option value="ovins">Ovins</option>
+                <option value="caprins">Caprins</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="filter-city">Ville</label>
+              <select id="filter-city" name="city">
+                <option value="">Toutes les villes</option>
+                <option>Ouagadougou</option>
+                <option>Bobo-Dioulasso</option>
+                <option>Koudougou</option>
+                <option>Ouahigouya</option>
+                <option>Banfora</option>
+              </select>
+            </div>
+            <fieldset class="field" style="padding:0;border:0;margin:0">
+              <legend class="text-small" style="font-weight:700;margin-bottom:.5rem">Prix unitaire (FCFA)</legend>
+              <div class="price-fields">
+                <label class="sr-only" for="filter-min-price">Prix minimum</label>
+                <input id="filter-min-price" name="minPrice" type="number" min="0" inputmode="numeric" placeholder="Min">
+                <label class="sr-only" for="filter-max-price">Prix maximum</label>
+                <input id="filter-max-price" name="maxPrice" type="number" min="0" inputmode="numeric" placeholder="Max">
+              </div>
+            </fieldset>
+            <label class="text-small"><input type="checkbox" name="available" checked> En stock uniquement</label>
+            <div class="field">
+              <label for="filter-sort">Trier par</label>
+              <select id="filter-sort" name="sort">
+                <option value="recent">Plus récentes</option>
+                <option value="price-asc">Prix croissant</option>
+                <option value="price-desc">Prix décroissant</option>
+                <option value="name">Nom</option>
+              </select>
+            </div>
+            <button class="button button--outline" type="reset">Réinitialiser les filtres</button>
+          </div>
+        </form>
+
+        <section aria-labelledby="results-heading">
+          <div class="catalog-toolbar">
+            <h2 id="results-heading" style="margin:0">Les offres</h2>
+            <p id="catalogue-count" class="muted text-small" aria-live="polite"></p>
+          </div>
+          <div class="catalog-tools">
+            <button id="nearby-toggle" class="button button--outline" type="button">Trouver près de moi</button>
+            <p id="nearby-status" class="muted text-small" role="status" aria-live="polite" hidden></p>
+          </div>
+          <div id="catalogue-products" class="catalog-products" aria-live="polite">
+            <p class="muted">Chargement des offres…</p>
+          </div>
+          <section id="stock-alert-panel" class="surface stock-alert-panel" aria-labelledby="stock-alert-title" hidden>
+            <h2 id="stock-alert-title">Vous cherchez un stock précis ?</h2>
+            <p>Aucun résultat ne correspond à vos filtres. Vous pouvez envoyer une demande manuelle à l’équipe sur WhatsApp ; cette demande n’est pas enregistrée et les alertes automatiques ne sont pas encore disponibles.</p>
+            <form id="stock-alert-form" class="stock-alert-form">
+              <div class="field">
+                <label for="stock-alert-phone">Votre numéro WhatsApp (facultatif)</label>
+                <input id="stock-alert-phone" name="phone" type="tel" autocomplete="tel" maxlength="32" placeholder="+226 …">
+              </div>
+              <button class="button button--red" type="submit">Demander une alerte par WhatsApp</button>
+            </form>
+            <p id="stock-alert-status" class="text-small" role="status" aria-live="polite" hidden></p>
+          </section>
+        </section>
+      </div>
+    </main>
+    <div id="site-footer"></div>
+  </body>
+</html>
